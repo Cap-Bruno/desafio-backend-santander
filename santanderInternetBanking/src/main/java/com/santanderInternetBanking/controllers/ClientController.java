@@ -25,7 +25,7 @@ public class ClientController {
 
     @Operation(summary = "Realiza a criação do cliente", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Cliente criado com sucesso"),
+            @ApiResponse(responseCode = "201", description = "Cliente criado com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro ao criar o cliente")
     })
     @PostMapping
