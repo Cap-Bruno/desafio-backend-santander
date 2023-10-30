@@ -59,7 +59,6 @@ class SantanderInternetBankingApplicationTests {
 		clientService.deposit(this.client, new BigDecimal(xx), transactionDTO);
 		Assertions.assertEquals(this.client.getBalance(), new BigDecimal(1100));
 	}
-	//está retornando uma lista vazia ou não retorna o valor
 
 	//@Test
 	public void testUpdateClient() throws Exception {
