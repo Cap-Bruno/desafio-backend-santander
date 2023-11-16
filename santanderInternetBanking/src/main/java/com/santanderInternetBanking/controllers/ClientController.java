@@ -7,7 +7,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +32,7 @@ public class ClientController {
             @ApiResponse(responseCode = "500", description = "Erro ao criar o cliente")
     })
     @PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody ClientDTO client){
+    public ResponseEntity<Client> createClient(@RequestBody @Valid ClientDTO client){
         Client newClient = clientService.createClient(client);
         return new ResponseEntity<>(newClient, HttpStatus.CREATED);
     }
@@ -40,9 +43,9 @@ public class ClientController {
             @ApiResponse(responseCode = "500", description = "Erro ao buscar os cliente")
     })
     @GetMapping
-    public ResponseEntity<List<Client>> getAllClients(){
-        List<Client> clients = this.clientService.getAllClients();
-        return new ResponseEntity<>(clients, HttpStatus.OK);
+    public ResponseEntity<List<Client>> getAllClients(Pageable pageable){
+      List<Client> clients = this.clientService.getAllClientsPage(pageable).getContent();
+      return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
 

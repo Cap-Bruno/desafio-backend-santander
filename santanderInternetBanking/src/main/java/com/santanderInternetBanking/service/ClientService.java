@@ -4,8 +4,12 @@ import com.santanderInternetBanking.domain.user.Client;
 import com.santanderInternetBanking.dto.ClientDTO;
 import com.santanderInternetBanking.dto.TransactionDTO;
 import com.santanderInternetBanking.repositories.ClientRepository;
+import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -70,7 +74,7 @@ public class ClientService {
         return this.clientRepository.findByNumAccount(numAccount).orElseThrow(() -> new Exception("Cliente não encontrado!"));
     }
 
-    public Client createClient(ClientDTO client){
+    public Client createClient(@Valid ClientDTO client){
         Client newClient = new Client(client);
         this.saveClient(newClient);
         return newClient;
@@ -80,8 +84,8 @@ public class ClientService {
         this.clientRepository.save(client);
     }
 
-    public List<Client> getAllClients(){
-        return this.clientRepository.findAll();
+    public Page<Client> getAllClientsPage(Pageable pageable){
+        return this.clientRepository.findAll(pageable);
     }
 
     public Client updateClient(ClientDTO client, Long id){
