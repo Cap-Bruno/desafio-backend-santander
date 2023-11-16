@@ -3,6 +3,7 @@ package com.santanderInternetBanking.domain.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.santanderInternetBanking.dto.ClientDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.math.BigDecimal;
